@@ -1,0 +1,24 @@
+{
+    "name": "zzantares/cfdi-wrapper",
+    "description": "Simple wrapper to interact with a CFDI without XSD hassle.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cesar Antares",
+            "email": "zzantares@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ZzAntares\\CfdiWrapper\\": "src/"
+        }
+    }
+}
