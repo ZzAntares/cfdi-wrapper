@@ -113,8 +113,28 @@ class Cfdi
         $namespaces = array_keys($cfdi->getNamespaces(true));
 
         if (!in_array_all(['tfd', 'xsi', 'cfdi', 'implocal'], $namespaces)) {
+    /**
+     * Checks if the given CFDI is valid by searching the needed namespaces.
+     *
+     * @throws ZzAntares\CfdiWrapper\Exceptions\MalformedCfdiException
+     *
+     * @param SimpleXMLElement $cfdi
+     *
+     * @return void
+     */
+    public function isValid($throwException = false)
+    {
+        $namespaces = array_keys($this->cfdi->getNamespaces(true));
+
+        if (in_array_all(['tfd', 'xsi', 'cfdi', 'implocal'], $namespaces)) {
+            return true;
+        }
+
+        if ($throwException) {
             throw new MalformedCfdiException();
         }
+
+        return false;
     }
 
     /**
