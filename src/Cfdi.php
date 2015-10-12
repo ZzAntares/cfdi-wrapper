@@ -108,6 +108,14 @@ class Cfdi
         }
     }
 
+    /**
+     * Allows to change the loaded CFDI by specifying a new string whose content
+     * is the new CDFI to set.
+     *
+     * @param string $xmlContent
+     *
+     * @return bool 'true' if load was successful, 'false' otherwise.
+     */
     public function load($xmlContent)
     {
         $cfdi = simplexml_load_string($xmlContent);
@@ -116,6 +124,13 @@ class Cfdi
         return $this->isValid(true);
     }
 
+    /**
+     * Allows to change the loaded CFDI by specifying the file path.
+     *
+     * @param string $path
+     *
+     * @return bool 'true' if load was successful, 'false' otherwise.
+     */
     public function loadFromFile($path)
     {
         return $this->load(file_get_contents($path));
