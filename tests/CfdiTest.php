@@ -175,4 +175,36 @@ class CfdiWrapperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($cfdi->timbre->uuid, $cfdi->timbre->UUID);
         $this->assertEquals($cfdi->timbre->selloSAT, $cfdi->timbre->sat);
     }
+
+    /**
+     * @expectedException ZzAntares\CfdiWrapper\Exceptions\MalformedCfdiException
+     */
+    public function testIsValid()
+    {
+        $xmlPath = __DIR__ . '/resources/sample-cfdi-invalid.xml';
+        $cfdi = new Cfdi($xmlPath);
+    }
+
+    public function testInstanceFromFile()
+    {
+        $xmlPath = __DIR__ . '/resources/sample-cfdi.xml';
+        $cfdi = new Cfdi($xmlPath);
+    }
+
+    public function testLoadFromFile()
+    {
+        $xmlPath = __DIR__ . '/resources/sample-cfdi.xml';
+        $cfdi = new Cfdi($xmlPath);
+    }
+
+    public function testLoad()
+    {
+        $xmlPath = __DIR__ . '/resources/sample-cfdi.xml';
+        $cfdi = new Cfdi($xmlPath);
+
+        $folio = $cfdi->folio;
+        $cfdi->load(file_get_contents(__DIR__ . '/resources/sample-cfdi-2.xml'));
+
+        $this->assertNotEquals($folio, $cfdi->folio);
+    }
 }
