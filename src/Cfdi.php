@@ -99,20 +99,28 @@ class Cfdi
      *
      * @return void
      */
-    public function __construct($cfdiString)
+    public function __construct($pathOrContent)
     {
-        $cfdi = simplexml_load_string($cfdiString);
-
-        $this->validateNamespaces($cfdi);
-
-        $this->cfdi = $cfdi;
+        if (file_exists($pathOrContent)) {
+            $this->loadFromFile($pathOrContent);
+        } else {
+            $this->load($pathOrContent);
+        }
     }
 
-    private function validateNamespaces($cfdi)
+    public function load($xmlContent)
     {
-        $namespaces = array_keys($cfdi->getNamespaces(true));
+        $cfdi = simplexml_load_string($xmlContent);
+        $this->cfdi = $cfdi;
 
-        if (!in_array_all(['tfd', 'xsi', 'cfdi', 'implocal'], $namespaces)) {
+        return $this->isValid(true);
+    }
+
+    public function loadFromFile($path)
+    {
+        return $this->load(file_get_contents($path));
+    }
+
     /**
      * Checks if the given CFDI is valid by searching the needed namespaces.
      *
