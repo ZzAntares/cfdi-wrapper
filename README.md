@@ -30,7 +30,7 @@ your project
 In order to use the CFDI Wrapper advantages create an instance of the `Cfdi`
 class by passing the XML content of the CFDI to inspect:
 
-```
+```php
 <?php
 
 require 'vendor/autoload.php';
@@ -45,7 +45,7 @@ echo $cfdi->emisor->rfc;  // 'some123456rfc'
 
 It is also possible to create an instance from a path file, like this:
 
-```
+```php
 <?php
 
 require 'vendor/autoload.php';
@@ -58,7 +58,7 @@ $cfdi = new Cfdi('/path/to/cfdi.xml');
 
 ## Available attributes
 
-```
+```php
 'version',
 'serie',
 'folio',
@@ -87,7 +87,7 @@ $cfdi = new Cfdi('/path/to/cfdi.xml');
 
 Also you can access to the nested objects:
 
-```
+```php
 'emisor',
 'receptor',
 'conceptos',
@@ -100,7 +100,7 @@ Also you can access to the nested objects:
 Every one of this nested objects has it's own attributes, you can get them very
 intuitively by reading the CFDI XSD file, here are some common examples:
 
-```
+```php
 <?php
 
 $cfdi->folio;
