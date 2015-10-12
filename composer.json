@@ -1,21 +1,27 @@
 {
     "name": "zzantares/cfdi-wrapper",
-    "description": "Simple wrapper to interact with a CFDI without XSD hassle.",
     "type": "library",
+    "description": "Simple wrapper to interact with a CFDI without XSD hassle.",
+    "keywords": ["CFDI", "XSD", "wrapper", "XML", "SAT", "facturas"],
+    "homepage": "http://git.microbit.com/julio/cfdi-wrapper",
     "license": "MIT",
+
     "authors": [
         {
-            "name": "Cesar Antares",
-            "email": "zzantares@gmail.com"
+            "name": "César Antáres",
+            "email": "zzantares@gmail.com",
+            "role": "Developer"
         }
     ],
-    "minimum-stability": "dev",
+
     "require": {
         "php": ">=5.4.0"
     },
+
     "require-dev": {
-        "phpunit/phpunit": "~4.0"
+        "phpunit/phpunit": "~4.7"
     },
+
     "autoload": {
         "psr-4": {
             "ZzAntares\\CfdiWrapper\\": "src/"
