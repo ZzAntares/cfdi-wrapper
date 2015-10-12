@@ -16,8 +16,20 @@ use ZzAntares\CfdiWrapper\Exceptions\MalformedCfdiException;
 
 class Cfdi
 {
+    /**
+     * Holds the instance used by all the methods to acces to the properties of
+     * the CFDI XSD.
+     *
+     * @var SimpleXMLElement
+     */
     private $cfdi;
 
+    /**
+     * Contains a map between CFDI XSD paths and an easier to read dotted
+     * representation of the paths.
+     *
+     * @var array
+     */
     private $paths = [
         'cfdi' => '//cfdi:Comprobante',
         'cfdi.issuing' => '//cfdi:Comprobante//cfdi:Emisor',
@@ -34,6 +46,11 @@ class Cfdi
         'cfdi.addon.taxes.holdbacks' => '//cfdi:Comprobante//cfdi:Complemento//implocal:ImpuestosLocales//implocal:RetencionesLocales',
     ];
 
+    /**
+     * Contains the allowed attributes on the CFDI Wrapper instance.
+     *
+     * @var array
+     */
     private $allowedAttributes = [
         'version',
         'serie',
@@ -61,6 +78,11 @@ class Cfdi
         'numCtaPago',  // Alias of numCtaPago
     ];
 
+    /**
+     * List the nested objects vailable on the CFDI Wrapper instance.
+     *
+     * @var array
+     */
     private $nestedObjects = [
         'emisor',
         'receptor',
@@ -93,13 +115,6 @@ class Cfdi
         if (!in_array_all(['tfd', 'xsi', 'cfdi', 'implocal'], $namespaces)) {
             throw new MalformedCfdiException();
         }
-        // if (!in_array('tfd', $namespaces)
-        //     or !in_array('xsi', $namespaces)
-        //     or !in_array('cfdi', $namespaces)
-        //     or !in_array('implocal', $namespaces)
-        // ) {
-        //     throw new MalformedCfdiException();
-        // }
     }
 
     /**
