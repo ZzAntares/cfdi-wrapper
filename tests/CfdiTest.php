@@ -17,6 +17,15 @@ class CfdiWrapperTest extends \PHPUnit_Framework_TestCase
         $this->cfdi = new Cfdi(file_get_contents($xmlPath));
     }
 
+    public function tearDown()
+    {
+        $filepath = __DIR__ . '/resources/cfdi-to-file.xml';
+
+        if (file_exists($filepath)) {
+            unlink($filepath);
+        }
+    }
+
     public function testCfdiGetAttributes()
     {
         $this->assertEquals('3.2', $this->cfdi->version);
@@ -185,5 +194,16 @@ class CfdiWrapperTest extends \PHPUnit_Framework_TestCase
         $this->cfdi->load(file_get_contents(__DIR__ . '/resources/sample-cfdi-2.xml'));
 
         $this->assertNotEquals($folio, $this->cfdi->folio);
+    }
+
+    public function testToString()
+    {
+        $filepath = __DIR__ . '/resources/cfdi-to-file.xml';
+        file_put_contents($filepath, $this->cfdi);
+
+        $this->assertFileExists($filepath);
+
+        $fileContent = file_get_contents($filepath);
+        $this->assertEquals($fileContent, $this->cfdi->__toString());
     }
 }

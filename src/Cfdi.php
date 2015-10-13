@@ -118,6 +118,7 @@ class Cfdi
      */
     public function load($xmlContent)
     {
+        $this->xmlContent = $xmlContent;
         $cfdi = simplexml_load_string($xmlContent);
         $this->cfdi = $cfdi;
 
@@ -249,6 +250,16 @@ class Cfdi
         }
 
         throw new UndefinedAttributeException();
+    }
+
+    /**
+     * Retrieves the string representation of the CFDI.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->xmlContent;
     }
 
     /**
