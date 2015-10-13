@@ -206,4 +206,40 @@ class CfdiWrapperTest extends \PHPUnit_Framework_TestCase
         $fileContent = file_get_contents($filepath);
         $this->assertEquals($fileContent, $this->cfdi->__toString());
     }
+
+    /**
+     * @expectedException RuntimeException
+     */
+    public function testToFileThrowsExceptionIfFileExists()
+    {
+        $filepath = __DIR__ . '/resources/cfdi-to-file.xml';
+        file_put_contents($filepath, 'file content');
+
+        $this->cfdi->toFile($filepath);
+    }
+
+    public function testToFile()
+    {
+        $filepath = __DIR__ . '/resources/cfdi-to-file.xml';
+
+        $this->cfdi->toFile($filepath);
+
+        $this->assertFileExists($filepath);
+
+        $fileContent = file_get_contents($filepath);
+        $this->assertEquals($fileContent, $this->cfdi->__toString());
+    }
+
+    public function testToFileEvenIfFileExists()
+    {
+        $filepath = __DIR__ . '/resources/cfdi-to-file.xml';
+        file_put_contents($filepath, 'file content');
+
+        $written = $this->cfdi->toFile($filepath, true);
+
+        $this->assertTrue((bool) $written);
+
+        $fileContent = file_get_contents($filepath);
+        $this->assertEquals($fileContent, $this->cfdi->__toString());
+    }
 }

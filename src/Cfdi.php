@@ -138,6 +138,29 @@ class Cfdi
     }
 
     /**
+     * Saves the XML representation of the CFDI into a file.
+     *
+     * @throws RuntimeException If Overwritte can't happen and file exists.
+     *
+     * @param string $filepath Full path and filename where to save the CFDI.
+     * @param bool $overwrite If the given file path exists and this is set to
+     *             'true' then file will be overwritten, otherwise an exception
+     *             will be thrown.
+     *
+     * @return return integer Bytes written to file or 'false' if writting
+     *                        wasn't possible.
+     */
+    public function toFile($filepath, $overwrite = false)
+    {
+        if (file_exists($filepath) and !$overwrite) {
+            throw new \RuntimeException($filepath . ' already exists.');
+        }
+
+        return file_put_contents($filepath, $this->xmlContent);
+    }
+    
+
+    /**
      * Checks if the given CFDI is valid by searching the needed namespaces.
      *
      * @throws ZzAntares\CfdiWrapper\Exceptions\MalformedCfdiException
