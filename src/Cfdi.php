@@ -9,8 +9,6 @@
 
 namespace ZzAntares\CfdiWrapper;
 
-require_once 'helpers.php';
-
 use ZzAntares\CfdiWrapper\Exceptions\UndefinedAttributeException;
 use ZzAntares\CfdiWrapper\Exceptions\MalformedCfdiException;
 
