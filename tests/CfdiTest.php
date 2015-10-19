@@ -32,8 +32,8 @@ class CfdiWrapperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('AIN', $this->cfdi->serie);
         $this->assertEquals('AIN2015027', $this->cfdi->folio);
         $this->assertEquals('2015-02-27T13:02:13', $this->cfdi->fecha);
-        $this->assertEquals('5.00', $this->cfdi->subtotal);
-        $this->assertEquals('5.80', $this->cfdi->total);
+        $this->assertEquals('320.50', $this->cfdi->subtotal);
+        $this->assertEquals('371.78', $this->cfdi->total);
         $this->assertStringStartsWith('MIIEmDCCA4CgAwIBAg', $this->cfdi->certificado);
         $this->assertEquals('00001000000301470107', $this->cfdi->noCertificado);
         $this->assertEquals('No aplica', $this->cfdi->condicionesDePago);
@@ -101,8 +101,8 @@ class CfdiWrapperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('1', $this->cfdi->conceptos[0]->cantidad);
         $this->assertEquals('Servicio', $this->cfdi->conceptos[0]->unidad);
         $this->assertStringStartsWith('Actualización', $this->cfdi->conceptos[0]->descripcion);
-        $this->assertEquals('5.00', $this->cfdi->conceptos[0]->valorUnitario);
-        $this->assertEquals('5.00', $this->cfdi->conceptos[0]->importe);
+        $this->assertEquals('120.50', $this->cfdi->conceptos[0]->valorUnitario);
+        $this->assertEquals('120.50', $this->cfdi->conceptos[0]->importe);
 
         $this->assertEquals('2', $this->cfdi->conceptos[1]->cantidad);
         $this->assertEquals('Producto', $this->cfdi->conceptos[1]->unidad);
@@ -113,7 +113,7 @@ class CfdiWrapperTest extends \PHPUnit_Framework_TestCase
 
     public function testImpuesto()
     {
-        $this->assertEquals('0.8', $this->cfdi->impuestos->totalImpuestosTrasladados);
+        $this->assertEquals('51.28', $this->cfdi->impuestos->totalImpuestosTrasladados);
         $this->assertEquals('0.00', $this->cfdi->impuestos->totalImpuestosRetenidos);
 
         $this->assertCount(2, $this->cfdi->impuestos->retenciones);
@@ -126,14 +126,14 @@ class CfdiWrapperTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $this->cfdi->impuestos->traslados);
         $this->assertEquals('IVA', $this->cfdi->impuestos->traslados[0]->impuesto);
         $this->assertEquals('0.16', $this->cfdi->impuestos->traslados[0]->tasa);
-        $this->assertEquals('0.8', $this->cfdi->impuestos->traslados[0]->importe);
+        $this->assertEquals('51.28', $this->cfdi->impuestos->traslados[0]->importe);
     }
 
     public function testComplementoImpuestosLocales()
     {
         $this->assertEquals('1.0', $this->cfdi->impuestosLocales->version);
         $this->assertEquals('0.00', $this->cfdi->impuestosLocales->retenciones);
-        $this->assertEquals('0.8', $this->cfdi->impuestosLocales->traslados);
+        $this->assertEquals('51.28', $this->cfdi->impuestosLocales->traslados);
 
         $this->assertEquals(
             $this->cfdi->impuestosLocales->retenciones,
