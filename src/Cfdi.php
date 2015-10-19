@@ -116,8 +116,8 @@ class Cfdi
      */
     public function load($xmlContent)
     {
-        $this->xmlContent = $xmlContent;
-        $cfdi = simplexml_load_string($xmlContent);
+        $this->xmlContent = $this->sanitizeXML($xmlContent);
+        $cfdi = simplexml_load_string($this->xmlContent);
         $this->cfdi = $cfdi;
 
         return $this->isValid(true);
@@ -280,7 +280,26 @@ class Cfdi
      */
     public function __toString()
     {
-        return $this->xmlContent;
+        return $this->sanitizeXML($this->xmlContent);
+    }
+
+    /**
+     * Removes new lines and spaces from the XML string representation.
+     *
+     * @param  string $xmlString XML string.
+     * @return string
+     */
+    public function sanitizeXML($xmlString)
+    {
+        $xmlHeader = '<?xml version="1.0" encoding="UTF-8"?>';
+
+        $data = str_replace($xmlHeader, '', $xmlString);
+        $data = str_replace("\n", '', $data);
+        $data = str_replace("\r", '', $data);
+        $data = preg_replace('~\s*(<([^>]*)>[^<]*</\2>|<[^>]*>)\s*~', '$1', $data);
+        $data = preg_replace('/\r\n/', "\n", $data);
+
+        return $xmlHeader . PHP_EOL . $data;
     }
 
     /**
