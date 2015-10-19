@@ -115,3 +115,10 @@ $cfdi->timbre->uuid;
 $cfdi->conceptos;  // Is an array
 $cfdi->conceptos[0]->descripcion;
 ```
+
+# TODO
+
+- Integrate qrcode generation right from the CFDI or at least the qr string.
+- Integrate helpers functions to get common values easier like IVA, Cadena
+  Original del complemento de certificacion del SAT, or the common legend "Esta
+  es una representacion impresa de un CFDI".
