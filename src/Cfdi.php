@@ -74,6 +74,8 @@ class Cfdi
         'lugarExpedicion',  // Alias of LugarExpedcion
         'NumCtaPago',
         'numCtaPago',  // Alias of numCtaPago
+        'cadenaOriginal',  // Dinamically generated
+        'leyenda',  // Dinamically generated
     ];
 
     /**
@@ -212,6 +214,14 @@ class Cfdi
 
             case 'numCtaPago':
                 $attribute = 'NumCtaPago';
+                break;
+
+            case 'cadenaOriginal':
+                return $this->getCadenaOriginal();
+                break;
+
+            case 'leyenda':
+                return 'Este documento es una representación impresa de un CFDI';
                 break;
         }
 
@@ -556,6 +566,24 @@ class Cfdi
             'regimen' => $regimenFiscal[0]['Regimen']->__toString(),
             'Regimen' => $regimenFiscal[0]['Regimen']->__toString(),
         ];
+    }
+
+    /**
+     * Retrieves the field known as 'Cadena original de complemento de
+     * certificación del SAT'.
+     *
+     * @return string
+     */
+    private function getCadenaOriginal()
+    {
+        return sprintf(
+            '||%s|%s|%s|%s|%s||',
+            $this->timbre->version,
+            $this->timbre->uuid,
+            $this->timbre->fechaTimbrado,
+            $this->timbre->selloCFD,
+            $this->timbre->noCertificadoSAT
+        );
     }
 
     /**

@@ -294,4 +294,24 @@ class CfdiWrapperTest extends \PHPUnit_Framework_TestCase
             __DIR__ . '/resources/qr-generated.png'
         );
     }
+
+    public function testCadenaOriginal()
+    {
+        $original = sprintf(
+            '||%s|%s|%s|%s|%s||',
+            $this->cfdi->timbre->version,
+            $this->cfdi->timbre->uuid,
+            $this->cfdi->timbre->fechaTimbrado,
+            $this->cfdi->timbre->selloCFD,
+            $this->cfdi->timbre->noCertificadoSAT
+        );
+
+        $this->assertEquals($original, $this->cfdi->cadenaOriginal);
+    }
+
+    public function testLeyenda()
+    {
+        $legend = 'Este documento es una representación impresa de un CFDI';
+        $this->assertEquals($legend, $this->cfdi->leyenda);
+    }
 }
