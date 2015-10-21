@@ -16,7 +16,9 @@
 
     "require": {
         "php": ">=5.4.0",
-        "zzantares/helpers": "~1.0"
+        "ext-gd": "*",
+        "zzantares/helpers": "~1.0",
+        "bacon/bacon-qr-code": "dev-master"
     },
 
     "require-dev": {

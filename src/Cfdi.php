@@ -557,4 +557,58 @@ class Cfdi
             'Regimen' => $regimenFiscal[0]['Regimen']->__toString(),
         ];
     }
+
+    /**
+     * Gets the Qr string, this is the string that should be read when scaning
+     * the QR code image.
+     *
+     * @return string
+     */
+    public function getQrString()
+    {
+        return '?re=' . $this->emisor->rfc
+            . '&rr=' . $this->receptor->rfc
+            . '&tt=' . $this->total
+            . '&id=' . $this->timbre->uuid;
+    }
+
+    /**
+     * Gets the qr code in string format.
+     *
+     * @param integer $width Width of the QR code image.
+     * @param integer $height Height of the QR code image.
+     * @param bool $base64 If you want raw bytes then set this to 'false'.
+     *
+     * @return string
+     */
+    public function qr($width = 256, $height = 256, $base64 = true)
+    {
+        $renderer = new \BaconQrCode\Renderer\Image\Png();
+        $renderer->setWidth($width);
+        $renderer->setHeight($height);
+
+        $writer = new \BaconQrCode\Writer($renderer);
+        $qrString = $writer->writeString($this->getQrString());
+
+        if (!$base64) {
+            return $qrString;
+        }
+
+        return base64_encode($qrString);
+    }
+
+    /**
+     * Writes the QR code string (bytes) to a file in order to generate the
+     * QR code image.
+     *
+     * @param string $filepath Full path to file location with filename included.
+     * @param integer $width Width of the QR code image.
+     * @param integer $height Height of the QR code image.
+     *
+     * @return integer Bytes written or 'false' on failure.
+     */
+    public function qrCode($filepath, $width = 256, $height = 256)
+    {
+        return file_put_contents($filepath, $this->qr($width, $height, false));
+    }
 }

@@ -24,6 +24,14 @@ class CfdiWrapperTest extends \PHPUnit_Framework_TestCase
         if (file_exists($filepath)) {
             unlink($filepath);
         }
+
+        if (file_exists(__DIR__ . '/resources/qr-original.png')) {
+            unlink(__DIR__ . '/resources/qr-original.png');
+        }
+
+        if (file_exists(__DIR__ . '/resources/qr-generated.png')) {
+            unlink(__DIR__ . '/resources/qr-generated.png');
+        }
     }
 
     public function testCfdiGetAttributes()
@@ -241,5 +249,49 @@ class CfdiWrapperTest extends \PHPUnit_Framework_TestCase
 
         $fileContent = file_get_contents($filepath);
         $this->assertEquals($fileContent, $this->cfdi->__toString());
+    }
+
+    public function testGetQrString()
+    {
+        $qrString = '?re=AIN020729J92&rr=BEGL7407295B7&tt=371.78'
+            . '&id=2F613767-0610-4686-9EA1-BE330AFD6C66';
+
+        $this->assertEquals($qrString, $this->cfdi->getQrString());
+
+        return $qrString;
+    }
+
+    /**
+     * @depends testGetQrString
+     */
+    public function testQrCodeGetsGenerated($qrString)
+    {
+        $renderer = new \BaconQrCode\Renderer\Image\Png();
+        $renderer->setWidth(256);
+        $renderer->setHeight(256);
+
+        $writer = new \BaconQrCode\Writer($renderer);
+        $qrString = $writer->writeString($qrString);
+
+        $this->assertEquals(base64_encode($qrString), $this->cfdi->qr());
+    }
+
+    /**
+     * @depends testGetQrString
+     */
+    public function testQrCodeGetsSavedToFile($qrString)
+    {
+        $renderer = new \BaconQrCode\Renderer\Image\Png();
+        $renderer->setWidth(256);
+        $renderer->setHeight(256);
+
+        $writer = new \BaconQrCode\Writer($renderer);
+        $writer->writeFile($qrString, __DIR__ . '/resources/qr-original.png');
+
+        $this->cfdi->qrCode(__DIR__ . '/resources/qr-generated.png');
+        $this->assertFileEquals(
+            __DIR__ . '/resources/qr-original.png',
+            __DIR__ . '/resources/qr-generated.png'
+        );
     }
 }
