@@ -76,6 +76,7 @@ class Cfdi
         'numCtaPago',  // Alias of numCtaPago
         'cadenaOriginal',  // Dinamically generated
         'leyenda',  // Dinamically generated
+        'iva',  // Dinamically generated
     ];
 
     /**
@@ -223,6 +224,10 @@ class Cfdi
             case 'leyenda':
                 return 'Este documento es una representación impresa de un CFDI';
                 break;
+
+            case 'iva':
+                return $this->getImpuesto('iva');
+                break;
         }
 
         return $comprobante[0][$attribute]->__toString();
@@ -265,6 +270,8 @@ class Cfdi
 
     /**
      * Magic method to get attributes on the CFDI.
+     *
+     * @throws UndefinedAttributeException when attribute is not in the XML.
      *
      * @param string $attribute
      *
@@ -584,6 +591,34 @@ class Cfdi
             $this->timbre->selloCFD,
             $this->timbre->noCertificadoSAT
         );
+    }
+
+    /**
+     * Gives a stdClass object with information of the given tax like 'tasa',
+     * 'importe', etc.
+     *
+     * @throws UndefinedAttributeException When tax is not found in the CFDI.
+     *
+     * @param $taxName Which tax to retrieve, this could be 'iva', 'ieps', etc.
+     *
+     * @return object
+     */
+    private function getImpuesto($taxName)
+    {
+        // Only 'iva' is supported for now
+        if ($taxName != 'iva') {
+            throw new UndefinedAttributeException();
+        }
+
+        $taxName = strtoupper($taxName);
+
+        foreach ($this->impuestos->traslados as $tax) {
+            if ($tax->impuesto == $taxName) {
+                return $tax;
+            }
+        }
+
+        throw new UndefinedAttributeException();
     }
 
     /**

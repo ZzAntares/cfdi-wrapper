@@ -115,7 +115,3 @@ $cfdi->timbre->uuid;
 $cfdi->conceptos;  // Is an array
 $cfdi->conceptos[0]->descripcion;
 ```
-
-# TODO
-
-- Integrate helpers functions to get common values easier like IVA.

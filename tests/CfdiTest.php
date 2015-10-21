@@ -133,7 +133,7 @@ class CfdiWrapperTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(1, $this->cfdi->impuestos->traslados);
         $this->assertEquals('IVA', $this->cfdi->impuestos->traslados[0]->impuesto);
-        $this->assertEquals('0.16', $this->cfdi->impuestos->traslados[0]->tasa);
+        $this->assertEquals('16.00', $this->cfdi->impuestos->traslados[0]->tasa);
         $this->assertEquals('51.28', $this->cfdi->impuestos->traslados[0]->importe);
     }
 
@@ -313,5 +313,11 @@ class CfdiWrapperTest extends \PHPUnit_Framework_TestCase
     {
         $legend = 'Este documento es una representación impresa de un CFDI';
         $this->assertEquals($legend, $this->cfdi->leyenda);
+    }
+
+    public function testGetIva()
+    {
+        $this->assertEquals('16.00', $this->cfdi->iva->tasa);
+        $this->assertEquals('51.28', $this->cfdi->iva->importe);
     }
 }
