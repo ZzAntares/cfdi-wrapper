@@ -531,15 +531,20 @@ class Cfdi
         $domicilio = [
             'calle'        => $address['calle']->__toString(),
             'colonia'      => $address['colonia']->__toString(),
-            'localidad'    => $address['localidad']->__toString(),
+            'localidad'    => '',
             'municipio'    => $address['municipio']->__toString(),
             'noExterior'   => $address['noExterior']->__toString(),
+            'noInterior'   => '',
             'estado'       => $address['estado']->__toString(),
             'pais'         => $address['pais']->__toString(),
             'codigoPostal' => $address['codigoPostal']->__toString(),
         ];
 
-        if (isset($address[0]['noInterior'])) {
+        if (isset($address['localidad'])) {
+            $domicilio['localidad'] = $address['localidad']->__toString();
+        }
+
+        if (isset($address['noInterior'])) {
             $domicilio['noInterior'] = $address['noInterior']->__toString();
         }
 
