@@ -333,16 +333,16 @@ class Cfdi
         $stamp = $this->cfdi->xpath('//tfd:TimbreFiscalDigital')[0];
 
         return (object) [
-            'version' => $stamp['version']->__toString(),
-            'uuid' => $stamp['UUID']->__toString(),
-            'UUID' => $stamp['UUID']->__toString(),
-            'fecha' => $stamp['FechaTimbrado']->__toString(),
-            'fechaTimbrado' => $stamp['FechaTimbrado']->__toString(),
-            'selloCFD' => $stamp['selloCFD']->__toString(),
-            'cfd' => $stamp['selloCFD']->__toString(),
+            'version'          => $stamp['version']->__toString(),
+            'uuid'             => $stamp['UUID']->__toString(),
+            'UUID'             => $stamp['UUID']->__toString(),
+            'fecha'            => $stamp['FechaTimbrado']->__toString(),
+            'fechaTimbrado'    => $stamp['FechaTimbrado']->__toString(),
+            'selloCFD'         => $stamp['selloCFD']->__toString(),
+            'cfd'              => $stamp['selloCFD']->__toString(),
             'noCertificadoSAT' => $stamp['noCertificadoSAT']->__toString(),
-            'selloSAT' => $stamp['selloSAT']->__toString(),
-            'sat' => $stamp['selloSAT']->__toString(),
+            'selloSAT'         => $stamp['selloSAT']->__toString(),
+            'sat'              => $stamp['selloSAT']->__toString(),
         ];
     }
 
@@ -356,13 +356,13 @@ class Cfdi
         $addon = $this->cfdi->xpath($this->paths['cfdi.addon.taxes'])[0];
 
         return (object) [
-            'version' => $addon['version'],
+            'version'            => $addon['version'],
             'totalDeRetenciones' => $addon['TotaldeRetenciones'],
             'totaldeRetenciones' => $addon['TotaldeRetenciones'],
-            'retenciones' => $addon['TotaldeRetenciones'],
-            'totalDeTraslados' => $addon['TotaldeTraslados'],
-            'totaldeTraslados' => $addon['TotaldeTraslados'],
-            'traslados' => $addon['TotaldeTraslados'],
+            'retenciones'        => $addon['TotaldeRetenciones'],
+            'totalDeTraslados'   => $addon['TotaldeTraslados'],
+            'totaldeTraslados'   => $addon['TotaldeTraslados'],
+            'traslados'          => $addon['TotaldeTraslados'],
             'retencionesLocales' => $this->getRetencionesLocales(),
         ];
     }
@@ -378,8 +378,8 @@ class Cfdi
 
         return (object) [
             'impuesto' => $holdbacks['ImpLocRetenido']->__toString(),
-            'importe' => $holdbacks['Importe']->__toString(),
-            'tasa' => $holdbacks['TasadeRetencion']->__toString(),
+            'importe'  => $holdbacks['Importe']->__toString(),
+            'tasa'     => $holdbacks['TasadeRetencion']->__toString(),
         ];
     }
 
@@ -395,9 +395,9 @@ class Cfdi
 
         return (object) [
             'totalImpuestosTrasladados' => $impuestos['totalImpuestosTrasladados']->__toString(),
-            'totalImpuestosRetenidos' => $impuestos['totalImpuestosRetenidos']->__toString(),
-            'retenciones' => $this->getRetenciones(),
-            'traslados' => $this->getTraslados(),
+            'totalImpuestosRetenidos'   => $impuestos['totalImpuestosRetenidos']->__toString(),
+            'retenciones'               => $this->getRetenciones(),
+            'traslados'                 => $this->getTraslados(),
         ];
     }
 
@@ -414,8 +414,8 @@ class Cfdi
         foreach ($transfers as $transfer) {
             $traslado = [
                 'impuesto' => $transfer['impuesto']->__toString(),
-                'importe' => $transfer['importe']->__toString(),
-                'tasa' => $transfer['tasa']->__toString(),
+                'importe'  => $transfer['importe']->__toString(),
+                'tasa'     => $transfer['tasa']->__toString(),
             ];
 
             $traslados[] = (object) $traslado;
@@ -437,7 +437,7 @@ class Cfdi
         foreach ($holdbacks as $holdback) {
             $retencion = [
                 'impuesto' => $holdback['impuesto']->__toString(),
-                'importe' => $holdback['importe']->__toString(),
+                'importe'  => $holdback['importe']->__toString(),
             ];
 
             $retenciones[] = (object) $retencion;
@@ -457,11 +457,11 @@ class Cfdi
         $conceptos = [];
         foreach ($items as $item) {
             $concepto = [
-                'cantidad' => $item['cantidad']->__toString(),
-                'unidad' => $item['unidad']->__toString(),
-                'descripcion' => $item['descripcion']->__toString(),
+                'cantidad'      => $item['cantidad']->__toString(),
+                'unidad'        => $item['unidad']->__toString(),
+                'descripcion'   => $item['descripcion']->__toString(),
                 'valorUnitario' => $item['valorUnitario']->__toString(),
-                'importe' => $item['importe']->__toString(),
+                'importe'       => $item['importe']->__toString(),
             ];
 
             $conceptos[] = (object) $concepto;
@@ -482,10 +482,10 @@ class Cfdi
         $domicilio = $this->getDomicilioFiscal('cfdi.receiver.address');
 
         $receptor = [
-            'rfc' => $comprobante[0]['rfc']->__toString(),
-            'nombre' => $comprobante[0]['nombre']->__toString(),
+            'rfc'             => $comprobante[0]['rfc']->__toString(),
+            'nombre'          => $comprobante[0]['nombre']->__toString(),
             'domicilioFiscal' => $domicilio,
-            'domicilio' => $domicilio,
+            'domicilio'       => $domicilio,
         ];
 
         return (object) $receptor;
@@ -504,13 +504,13 @@ class Cfdi
         $regimenFiscal = $this->getRegimenFiscal();
 
         $emisor = [
-            'rfc' => $comprobante[0]['rfc']->__toString(),
-            'nombre' => $comprobante[0]['nombre']->__toString(),
+            'rfc'             => $comprobante[0]['rfc']->__toString(),
+            'nombre'          => $comprobante[0]['nombre']->__toString(),
             'domicilioFiscal' => $domicilio,
-            'domicilio' => $domicilio,
-            'expedidoEn' => $this->getExpedidoEn(),
-            'regimenFiscal' => $regimenFiscal,
-            'regimen' => $regimenFiscal,
+            'domicilio'       => $domicilio,
+            'expedidoEn'      => $this->getExpedidoEn(),
+            'regimenFiscal'   => $regimenFiscal,
+            'regimen'         => $regimenFiscal,
         ];
 
         return (object) $emisor;
