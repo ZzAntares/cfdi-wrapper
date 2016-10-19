@@ -1,0 +1,11 @@
+image: php:5.6
+
+before_script:
+  - apt-get update -yqq
+  - apt-get install git curl -yqq
+  - curl -O https://getcomposer.org/composer.phar
+  - php composer.phar install --prefer-dist
+
+test:
+  script:
+    - ./vendor/bin/phpunit
