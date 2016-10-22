@@ -1,8 +1,8 @@
-image: php:5.6
+image: php:5.6-alpine
 
 before_script:
-  - apt-get update -yqq
-  - apt-get install git curl -yqq
+  - apk update -q
+  - apk add git curl libpng-dev -q
   - docker-php-ext-install gd
   - curl -O https://getcomposer.org/composer.phar
   - php composer.phar install --prefer-dist
