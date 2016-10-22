@@ -1,5 +1,7 @@
 # CFDI Wrapper
 
+[![build status](http://git.microbit.com/julio/cfdi-wrapper/badges/master/build.svg)](http://git.microbit.com/julio/cfdi-wrapper/commits/master) [![coverage report](http://git.microbit.com/julio/cfdi-wrapper/badges/master/coverage.svg)](http://git.microbit.com/julio/cfdi-wrapper/commits/master)
+
 This project is a neat wrapper for CFDI XSD files, this library allows you to
 manipulate CFDI attributes in a very simple and intuitive way without dealing
 with XML, XSD or XPATH at all!
