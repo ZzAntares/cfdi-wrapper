@@ -11,6 +11,8 @@ before_script:
 
 test:
   script:
+    - ./vendor/bin/phpcs --standard=PSR1 --encoding=utf-8 --report=emacs --ignore=vendor .
+    - ./vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 --report=emacs --ignore=vendor .
     - ./vendor/bin/phpunit --coverage-text --coverage-html coverage
 
   artifacts:

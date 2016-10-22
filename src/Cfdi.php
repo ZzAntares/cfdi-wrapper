@@ -41,6 +41,7 @@ class Cfdi
         'cfdi.taxes.holdbacks' => '//cfdi:Comprobante//cfdi:Impuestos//cfdi:Retenciones//cfdi:Retencion',
         'cfdi.taxes.transfers' => '//cfdi:Comprobante//cfdi:Impuestos//cfdi:Traslados//cfdi:Traslado',
         'cfdi.addon.taxes' => '//cfdi:Comprobante//cfdi:Complemento//implocal:ImpuestosLocales',
+        // @codingStandardsIgnoreLine
         'cfdi.addon.taxes.holdbacks' => '//cfdi:Comprobante//cfdi:Complemento//implocal:ImpuestosLocales//implocal:RetencionesLocales',
     ];
 
@@ -159,7 +160,7 @@ class Cfdi
 
         return file_put_contents($filepath, $this->xmlContent);
     }
-    
+
 
     /**
      * Checks if the given CFDI is valid by searching the needed namespaces.
