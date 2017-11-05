@@ -21,8 +21,8 @@ before_script:
 script:
   - ./vendor/bin/phpcs --standard=PSR1 --encoding=utf-8 --report=emacs --ignore=vendor .
   - ./vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 --report=emacs --ignore=vendor .
-  - ./vendor/bin/phpunit --coverage-text --colors=never --coverage-clover=clover.xml
+  - ./vendor/bin/phpunit --coverage-text --colors=never --coverage-clover=coverage.clover
 
 after_success:
   - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover clover.xml
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
