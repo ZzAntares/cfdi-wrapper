@@ -1,0 +1,30 @@
+language: php
+
+php:
+  - 5.6
+  - 5.5
+  - 5.4
+  - hhvm
+
+matrix:
+  allow_failures:
+    - php: hhvm
+
+before_install:
+  - sudo apt-get update > /dev/null
+  - apt-get install curl libpng-dev php5-gd
+  - pecl install xdebug
+  - echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20131226/xdebug.so" > /usr/local/etc/php/conf.d/xdebug.ini
+
+before_script:
+  - composer self-update
+  - composer install --prefer-dist -nq
+
+script:
+  - ./vendor/bin/phpcs --standard=PSR1 --encoding=utf-8 --report=emacs --ignore=vendor .
+  - ./vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 --report=emacs --ignore=vendor .
+  - ./vendor/bin/phpunit --coverage-text --colors=never --coverage-clover=clover.xml
+
+after_success:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover clover.xml
