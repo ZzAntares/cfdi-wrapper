@@ -13,12 +13,6 @@ Add the dependency to your `composer.json`:
 
 ```
 {
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "http://git.microbit.com/julio/cfdi-wrapper.git"
-        },
-    ],
     "require": {
         "zzantares/cfdi-wrapper": "dev-master",
     }
