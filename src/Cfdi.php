@@ -18,7 +18,7 @@ class Cfdi
      * Holds the instance used by all the methods to acces to the properties of
      * the CFDI XSD.
      *
-     * @var SimpleXMLElement
+     * @var \SimpleXMLElement
      */
     private $cfdi;
 

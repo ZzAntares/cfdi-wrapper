@@ -1,5 +1,8 @@
 # CFDI Wrapper
 
+[![Build Status](https://travis-ci.org/ZzAntares/cfdi-wrapper.svg?branch=master)](https://travis-ci.org/ZzAntares/cfdi-wrapper)
+[![Code Coverage](https://scrutinizer-ci.com/g/ZzAntares/cfdi-wrapper/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/ZzAntares/cfdi-wrapper/?branch=master)
+
 This project is a neat wrapper for CFDI XSD files, this library allows you to
 manipulate CFDI attributes in a very simple and intuitive way without dealing
 with XML, XSD or XPATH at all!
