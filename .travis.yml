@@ -12,9 +12,9 @@ matrix:
 
 before_install:
   - sudo apt-get update > /dev/null
-  - apt-get install curl libpng-dev php5-gd
-  - pecl install xdebug
-  - echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20131226/xdebug.so" > /usr/local/etc/php/conf.d/xdebug.ini
+  - sudo apt-get install curl libpng-dev php5-gd
+  - sudo pecl install xdebug
+  - sudo echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20131226/xdebug.so" > /usr/local/etc/php/conf.d/xdebug.ini
 
 before_script:
   - composer self-update
